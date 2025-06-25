@@ -1,2 +1,53 @@
 @import './base.css';
+@import "tailwindcss";
 
+@layer theme, base, components, utilities;
+
+@layer theme {
+  :root {
+    --color-blue-100: #00253c;
+
+    --text-size-xl: 1.25rem;
+    --text-size-2xl: 1.5rem;
+    --text-font: "Inter", sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+  }
+}
+
+@layer base {
+  body {
+    color: #fff;
+    background-image: linear-gradient(to right, #040913, #00253c, #040913);
+    font-family: var(--font-sans);
+  }
+
+  h1 {
+    font-size: 2xl;
+    font-weight: light;
+  }
+
+}
+
+@layer components {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .desktop-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 5rem;
+  }
+  .options {
+    display: flex;
+    gap: 3rem;
+  }
+  .logo {
+    padding: 3rem 5rem;
+    font-size: var(--text-size-2xl);
+    font-weight: light;
+    display: flex;
+    gap: 3rem;
+  }
+}
