@@ -1,61 +1,87 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-const inMobileView = ref(window.innerWidth <= 768);
-const isOpen = ref(false);
+interface NavItem {
+  name: string;
+  id: string;
+}
+
+const inMobileView = ref(window.innerWidth <= 1127);
+
+const navItems: NavItem[] = [
+  { name: 'Om oss', id: 'om-oss' },
+  { name: 'Prosjekter', id: 'prosjekter' },
+  { name: 'Tjenester', id: 'tjenester' },
+  { name: 'HMS', id: 'hms' },
+];
 
 // Check screen size
 const checkScreenSize = () => {
-  inMobileView.value = window.innerWidth <= 768;
-  if (!inMobileView.value) isOpen.value = false;
-};
-
-// Toggle mobile menu
-const toggleMenu = () => {
-  isOpen.value = !isOpen.value;
+  inMobileView.value = window.innerWidth <= 1127;
 };
 
 // Detect screen resize
 onMounted(() => {
   window.addEventListener('resize', checkScreenSize);
 });
+
+// Scroll to sections
+const scrollToSection = (sectionId: string) => {
+  document.getElementById(sectionId)?.scrollIntoView({
+    behavior: 'smooth'
+  });
+}
 </script>
 
 <template>
-<div class="navbar">
+<div class="relative flex justify-between items-center">
+
   <!-- logo -->
-  <div class="logo">
-    <router-link to="/" id="header">Logo</router-link>
-    Entreprenør Kr Stensrud
-  </div>
+  <router-link to="/">
+    <div class="text-xl p-5 light flex gap-5 items-center">
+      <img src="/stensrud-logo.png" alt="Logo" class="h-20 w-auto" />
+      <p>Entreprenør Kr Stensrud</p>
+    </div>
+  </router-link>
 
   <!-- Desktop Menu -->
   <template v-if="!inMobileView">
-    <div class="desktop-navbar">
-      <div class="options">
-          <router-link to="/om-oss" id="router-link">Om oss</router-link>
-          <router-link to="/prosjekter" id="router-link">Prosjekter</router-link>
-          <router-link to="/tjenester" id="router-link">Tjenester</router-link>
-          <router-link to="/hms" id="router-link">HMS</router-link>
-          <router-link to="/kontakt" id="router-link">Kontakt</router-link>
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <div class="lg:menu-horizontal bg-neutral-300/25 rounded-full">
+          <button
+              v-for="item in navItems"
+              :key="item.id"
+              :to="item.id"
+              class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 px-7 py-3 rounded-full transition-all duration-200 cursor-pointer"
+              @click="scrollToSection(item.id)"
+            >
+              {{ item.name }}
+          </button>
       </div>
+    </div>
+    <div class="p-10">
+      <button class="contact-btn">Kontakt →</button>
     </div>
   </template>
 
   <!-- Mobile Dropdown Menu -->
   <template v-else>
-    <div class="mobile-navbar">
-      <button class="menu-btn" @click="toggleMenu">☰</button>
-      <div class="options">
+    <div class="dropdown dropdown-left">
+      <div class="dropdown-toggle">
 
-        <ul v-show="isOpen" class="dropdown">
-            <li><router-link to="/om-oss" id="router-link">Om oss</router-link></li>
-            <li><router-link to="/prosjekter" id="router-link">Prosjekter</router-link></li>
-            <li><router-link to="/tjenester" id="router-link">Tjenester</router-link></li>
-            <li><router-link to="/hms" id="router-link">HMS</router-link></li>
-            <li><router-link to="/kontakt" id="router-link">Kontakt</router-link></li>
+
+        <div tabindex="0" role="button" class="px-3 -my-4"><p class="text-5xl light">☰</p></div>
+        <ul tabindex="0" class="dropdown-content menu bg-neutral-300/25 rounded-box z-1 w-35 shadow-sm" >
+            <button
+              v-for="item in navItems"
+              :key="item.id"
+              :to="item.id"
+              class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 p-3 rounded-full transition-all duration-200"
+              @click="scrollToSection(item.id)"
+            >
+              {{ item.name }}
+            </button>
         </ul>
-
       </div>
     </div>
   </template>
