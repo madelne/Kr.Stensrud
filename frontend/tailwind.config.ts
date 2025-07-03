@@ -9,8 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'navy': '#040913',
-        'dark-blue': '#00253c',
         'blue-100': '#00253c',
         'blue-300': '#040913',
         'neutral-100': '#C5CDD6',
