@@ -16,6 +16,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@sanity/client": "^7.13.2",
     "@tailwindcss/vite": "^4.1.10",
     "pinia": "^3.0.1",
     "tailwind": "^4.0.0",
