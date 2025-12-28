@@ -27,4 +27,6 @@ public class Option {
         this.body = body;
     }
 
+    public String getHeader(){return header;}
+    public String getBody(){return body;}
 }
