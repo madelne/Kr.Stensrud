@@ -19,7 +19,7 @@ export default defineType({
     defineField({
       name: 'publishedAt',
       title: 'Sist oppdatert',
-      type: 'datetime',
+      type: 'date',
     }),
     defineField({
       name: 'categories',
