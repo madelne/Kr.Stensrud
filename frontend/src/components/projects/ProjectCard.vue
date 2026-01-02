@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-interface Props {
+interface Project {
   title: string;
   category: string;
   publishedAt: Date | string;
   body: string;
   mainImage: string;
 }
-
-const props = defineProps<Props>();
+const props = defineProps<Project>();
 
 // Formate published date to Norwegian format
 const formattedDate = computed(() => {
