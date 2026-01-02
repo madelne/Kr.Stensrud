@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import Navbar from '@/components/Navbar.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
-import Footer from '@/components/Footer.vue';
+import { onMounted, ref } from 'vue';
 import ProjectCard from '@/components/projects/ProjectCard.vue';
 import sanity from '@/sanity';
 import { getPlainTextPreview, getImageUrl, getCategory } from '@/assets/converter';
+import { useRouter } from 'vue-router';
+import { useProjectStore } from '@/stores/project';
 
 const query = `*[_type == "project" ] | order(releaseDate desc)
 {
+  _id,
   title,
   "category": categories[0]->{
     title
@@ -17,6 +18,7 @@ const query = `*[_type == "project" ] | order(releaseDate desc)
   mainImage,
 }[0...29]`;
 interface Project {
+  _id: string;
   title: string;
   category: {
     title: string;
@@ -47,13 +49,25 @@ const fetchProjects = async () => {
     loading.value = false;
   }
 };
+
+// Route to single project
+const projectStore = useProjectStore();
+const router = useRouter();
+const toProjectView = (project: Project) => {
+  try{
+    projectStore.setProject(project._id);
+    router.push('/Prosjekter/' + project._id);
+  } catch (err) {
+    console.error('Error navigating to listing view:', err);
+  }
+}
 </script>
 
 <template>
     <!-- List projects -->
     <div v-if="loading" class="text-white text-center p-8">Loading...</div>
     <ul v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-      <ProjectCard v-for="project in projects" :key="project.title"
+      <ProjectCard v-for="project in projects" :key="project._id" @click="toProjectView(project)"
         :title="project.title"
         :category="getCategory(project.category)"
         :published-at="project.publishedAt"
