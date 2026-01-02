@@ -20,17 +20,17 @@
 </div>
 
 <div id="prosjekter">
+  <router-link to="/Prosjekter">
   <div class="card bg-neutral-300/25 shadow-sm px-4 py-20 m-5">
     <div class="flex items-center justify-between h-full">
-      <router-link to="/">
         <h2 class="text-5xl justify-start ml-5 w-50">Prosjekter</h2>
-      </router-link>
       <p class="flex-1 text-left ml-50 text-lg text-neutral-200/75">Se et utvalg av våre prosjekter</p>
       <div class="ml-6">
         <button class="contact-btn">Les mer→</button>
       </div>
     </div>
   </div>
+  </router-link>
 </div>
 
 <div id="tjenester">
