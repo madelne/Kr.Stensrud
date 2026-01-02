@@ -1,6 +1,6 @@
-import sanityClient from "@sanity/client";
+import {createClient} from "@sanity/client";
 
-export default sanityClient({
+export default createClient({
   // Find your project ID and dataset in `sanity.json` in your studio project
   projectId: "4yvy43x5",
   dataset: "production",
