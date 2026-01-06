@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import sanity from '@/sanity';
 import ServiceCard from '@/components/services/ServiceCard.vue';
-import { getPlainText } from '@/assets/converter';
+import { getPlainText, getPlainTextPreview } from '@/assets/converter';
 
 interface Service {
   _id: string;
@@ -57,7 +57,7 @@ onMounted(() => {
         :key="service._id"
         :id="service._id"
         :name="service.name"
-        :body="getPlainText(service.body)"
+        :body="getPlainTextPreview(service.body)"
         :project-count="service.projectCount"
       />
     </div>
