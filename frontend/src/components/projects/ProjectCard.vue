@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { getFormattedDate } from '@/assets/converter';
 
 interface Project {
   title: string;
@@ -9,19 +10,8 @@ interface Project {
   mainImage: string;
 }
 const props = defineProps<Project>();
+const formattedDate = getFormattedDate(props.publishedAt);
 
-// Formate published date to Norwegian format
-const formattedDate = computed(() => {
-  const date = typeof props.publishedAt === 'string'
-    ? new Date(props.publishedAt)
-    : props.publishedAt;
-
-  return date.toLocaleDateString('nb-NO', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-});
 </script>
 <template>
   <div class="max-w-md rounded-2xl overflow-hidden border border-white/10 bg-[#00253c]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
