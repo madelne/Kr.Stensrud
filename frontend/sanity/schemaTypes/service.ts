@@ -16,10 +16,10 @@ export default defineType({
       type: 'blockContent',
     }),
     defineField({
-      name: 'projectExamples',
+      name: 'projects',
       title: 'Eksempler på prosjekter',
-      type: 'reference',
-      to: {type: 'project'},
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'project'}}],
     }),
   ],
   preview: {
