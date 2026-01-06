@@ -6,7 +6,7 @@
       <p class="py-6">
         Byggeoppdrag for eiendomsforvaltere, kommunale og statlige kunder i Oslo og Akershus.
       </p>
-      <button class="contact-btn">Våre tjenester</button>
+      <router-link to="/Tjenester" class="contact-btn">Våre tjenester</router-link>
     </div>
   </div>
 </div>
