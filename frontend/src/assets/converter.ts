@@ -42,4 +42,16 @@ const getCategory = (category: any) => {
   return category?.title || 'Uncategorized';
 };
 
-export { getPlainText, getPlainTextPreview, getImageUrl, getAuthorName, getCategory };
+// Formate published date to Norwegian format
+const getFormattedDate = (publishDate: Date | string) => {
+  const date = typeof publishDate === 'string'
+    ? new Date(publishDate)
+    : publishDate;
+  return date.toLocaleDateString('nb-NO', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+export { getPlainText, getPlainTextPreview, getImageUrl, getAuthorName, getCategory, getFormattedDate };
