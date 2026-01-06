@@ -29,7 +29,7 @@ interface Project {
 }
 
 const projects = ref<Project[]>([]);
-const loading = ref(true);
+const loading = ref(false);
 const error = ref();
 
 // Fetch projects on mount
@@ -40,12 +40,13 @@ onMounted(async () => {
 // Fetch projects from Sanity
 const fetchProjects = async () => {
   try {
+    loading.value = true;
     const data = await sanity.fetch(query);
     projects.value = data;
-    loading.value = false;
   } catch (err) {
     error.value = err;
     console.error('Error fetching projects:', err);
+  }finally {
     loading.value = false;
   }
 };
@@ -53,10 +54,10 @@ const fetchProjects = async () => {
 // Route to single project
 const projectStore = useProjectStore();
 const router = useRouter();
-const toProjectView = (project: Project) => {
+const toProjectView = (id: string) => {
   try{
-    projectStore.setProject(project._id);
-    router.push('/Prosjekter/' + project._id);
+    projectStore.setProject(id);
+    router.push('/Prosjekter/' + id);
   } catch (err) {
     console.error('Error navigating to listing view:', err);
   }
@@ -67,7 +68,7 @@ const toProjectView = (project: Project) => {
     <!-- List projects -->
     <div v-if="loading" class="text-white text-center p-8">Loading...</div>
     <ul v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-      <ProjectCard v-for="project in projects" :key="project._id" @click="toProjectView(project)"
+      <ProjectCard v-for="project in projects" :key="project._id" @click="toProjectView(project._id)"
         :title="project.title"
         :category="getCategory(project.category)"
         :published-at="project.publishedAt"
