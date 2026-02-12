@@ -19,10 +19,10 @@ const getPlainText = (blocks: any) => {
     .join(' ');
 };
 
-const getPlainTextPreview = (blocks: any) => {
+const getPlainTextPreview = (blocks: any, max: number) => {
   const string = getPlainText(blocks);
-  if (string.length <= 200) return string;
-  return string.substring(0, 200).trimEnd() + '...';
+  if (string.length <= max) return string;
+  return string.substring(0, max).trimEnd() + '...';
 }
 
 // Helper function to get image URL from Sanity image object
