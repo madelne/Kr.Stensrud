@@ -14,6 +14,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/Om-oss',
+      name: 'about',
+      component: HomeView,
+    },
+    {
       path: '/Prosjekter',
       name: 'projects',
       component: ProjectsView,
@@ -32,6 +37,11 @@ const router = createRouter({
       path: '/Tjenester/:_id',
       name: 'service',
       component: SingleServiceView,
+    },
+    {
+      path: '/HMS',
+      name: 'hms',
+      component: HomeView,
     },
   ],
 })
