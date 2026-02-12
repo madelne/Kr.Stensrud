@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import router from '@/router';
 import { onMounted, ref } from 'vue';
 
 interface NavItem {
@@ -9,10 +10,10 @@ interface NavItem {
 const inMobileView = ref(window.innerWidth <= 1127);
 
 const navItems: NavItem[] = [
-  { name: 'Om oss', id: 'om-oss' },
-  { name: 'Prosjekter', id: 'prosjekter' },
-  { name: 'Tjenester', id: 'tjenester' },
-  { name: 'HMS', id: 'hms' },
+  { name: 'Om oss', id: 'Om-oss' },
+  { name: 'Prosjekter', id: 'Prosjekter' },
+  { name: 'Tjenester', id: 'Tjenester' },
+  { name: 'HMS', id: 'HMS' },
 ];
 
 // Check screen size
@@ -25,16 +26,18 @@ onMounted(() => {
   window.addEventListener('resize', checkScreenSize);
 });
 
-// Scroll to sections
-const scrollToSection = (sectionId: string) => {
-  document.getElementById(sectionId)?.scrollIntoView({
-    behavior: 'smooth'
-  });
+// Route to page
+const routeToPage = (sectionId: string) => {
+  router.push('/' + sectionId);
+
+  // document.getElementById(sectionId)?.scrollIntoView({
+  //   behavior: 'smooth'
+  // });
 }
 </script>
 
 <template>
-<div class="relative flex justify-between items-center">
+<div class="relative flex justify-between items-center pb-10">
 
   <!-- logo -->
   <router-link to="/">
@@ -53,7 +56,7 @@ const scrollToSection = (sectionId: string) => {
               :key="item.id"
               :to="item.id"
               class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 px-7 py-3 rounded-full transition-all duration-200 cursor-pointer"
-              @click="scrollToSection(item.id)"
+              @click="routeToPage(item.id)"
             >
               {{ item.name }}
           </button>
@@ -77,7 +80,7 @@ const scrollToSection = (sectionId: string) => {
               :key="item.id"
               :to="item.id"
               class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 p-3 rounded-full transition-all duration-200"
-              @click="scrollToSection(item.id)"
+              @click="routeToPage(item.id)"
             >
               {{ item.name }}
             </button>
