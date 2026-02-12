@@ -1,5 +1,5 @@
 <template>
-<div class="hero pt-20 pb-10">
+<div class="hero pb-10">
   <div class="hero-content text-center">
     <div class="max-w-md">
       <h1 class="text-5xl font-bold">Stolte tradisjoner</h1>
