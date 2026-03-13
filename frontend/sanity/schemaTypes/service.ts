@@ -1,5 +1,7 @@
 import {defineField, defineType} from 'sanity'
 
+// Type of service the company offers, such as rehabilitation, new construction, etc.
+// Type includes the service's name, description, and examples of projects that fall under the service.
 export default defineType({
   name: 'service',
   title: 'Tjeneste',

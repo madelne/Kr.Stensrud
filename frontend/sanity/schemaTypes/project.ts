@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 
+// Full building project, including title, author, published date, categories, description, and main image.
 export default defineType({
   name: 'project',
   title: 'Prosjekt',
