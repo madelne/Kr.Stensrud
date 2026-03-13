@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 
+// Author of a post, such as a project. Type includes the author's name
 export default defineType({
   name: 'author',
   title: 'Forfatter',
