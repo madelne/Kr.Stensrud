@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import sanity from '@/sanity';
 import ServiceCard from '@/components/services/ServiceCard.vue';
-import { getPlainText, getPlainTextPreview, getImageUrl } from '@/assets/converter';
+import { getPlainTextPreview, getImageUrl } from '@/assets/converter';
 
 interface Service {
   _id: string;
