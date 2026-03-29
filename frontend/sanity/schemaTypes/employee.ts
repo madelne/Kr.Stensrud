@@ -16,6 +16,18 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'category',
+      title: 'Kategori',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Ledelse', value: 'ledelse' },
+          { title: 'Administrasjon', value: 'administrasjon' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'image',
       title: 'Bilde',
       type: 'image',
