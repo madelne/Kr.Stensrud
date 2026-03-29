@@ -39,7 +39,7 @@ const fetchTextfields = async () => {
     const introQuery = `*[_type == "textfield" && textfieldtype->textfieldtype == "Om oss, intro"][0] {
       _id, title, body
     }`;
-    const textQuery = `*[_type == "textfield" && textfieldtype->textfieldtype == "Om oss, innlegg"] {
+    const textQuery = `*[_type == "textfield" && textfieldtype->textfieldtype == "Om oss, innlegg"] | order(_createdAt asc){
       _id, title, body
     }`;
 

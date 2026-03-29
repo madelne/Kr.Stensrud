@@ -29,7 +29,7 @@ onMounted(async () => {
       sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, intro"][0] {
         _id, title, body
       }`),
-      sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, innlegg"] {
+      sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, innlegg"] | order(_createdAt asc){
         _id, title, body
       }`),
       sanity.fetch(`*[_type == "hmsImage"] | order(_createdAt asc) {
