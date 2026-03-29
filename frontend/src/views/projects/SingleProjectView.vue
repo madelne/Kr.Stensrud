@@ -13,7 +13,7 @@ interface Project {
     name: string;
   };
   publishedAt: string;
-  category: {
+  projectCategory: {
     title: string;
   };
   body: any[];
@@ -34,7 +34,7 @@ const fetchProject = async () => {
       title,
       author->{ name },
       publishedAt,
-      "category": categories[0]->{
+      "projectCategory": projectCategories[0]->{
         title
       },
       body,
@@ -78,7 +78,7 @@ const authorName = computed(() =>
 );
 
 const category = computed(() =>
-  project.value ? getCategory(project.value.category) : ''
+  project.value ? getCategory(project.value.projectCategory) : ''
 );
 </script>
 
