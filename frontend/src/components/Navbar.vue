@@ -1,39 +1,39 @@
 <script lang="ts" setup>
 import router from '@/router';
+import { useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
 
 interface NavItem {
   name: string;
-  id: string;
+  route: string;
+  sectionId: string;
 }
 
+const route = useRoute();
 const inMobileView = ref(window.innerWidth <= 1127);
 
 const navItems: NavItem[] = [
-  { name: 'Om oss', id: 'Om-oss' },
-  { name: 'Prosjekter', id: 'Prosjekter' },
-  { name: 'Tjenester', id: 'Tjenester' },
-  { name: 'HMS', id: 'HMS' },
+  { name: 'Om oss',     route: '/Om-oss',     sectionId: 'om-oss' },
+  { name: 'Prosjekter', route: '/Prosjekter', sectionId: 'prosjekter' },
+  { name: 'Tjenester',  route: '/Tjenester',  sectionId: 'tjenester' },
+  { name: 'HMS',        route: '/HMS',        sectionId: 'hms' },
 ];
 
-// Check screen size
 const checkScreenSize = () => {
   inMobileView.value = window.innerWidth <= 1127;
 };
 
-// Detect screen resize
 onMounted(() => {
   window.addEventListener('resize', checkScreenSize);
 });
 
-// Route to page
-const routeToPage = (sectionId: string) => {
-  router.push('/' + sectionId);
-
-  // document.getElementById(sectionId)?.scrollIntoView({
-  //   behavior: 'smooth'
-  // });
-}
+const handleNavClick = (item: NavItem) => {
+  if (route.path === '/') {
+    document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    router.push(item.route);
+  }
+};
 </script>
 
 <template>
@@ -53,17 +53,16 @@ const routeToPage = (sectionId: string) => {
       <div class="lg:menu-horizontal bg-neutral-300/25 rounded-full">
           <button
               v-for="item in navItems"
-              :key="item.id"
-              :to="item.id"
+              :key="item.route"
               class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 px-7 py-3 rounded-full transition-all duration-200 cursor-pointer"
-              @click="routeToPage(item.id)"
+              @click="handleNavClick(item)"
             >
               {{ item.name }}
           </button>
       </div>
     </div>
     <div class="p-10">
-      <button class="contact-btn">Kontakt →</button>
+      <button class="contact-btn" @click="router.push('/Kontakt')">Kontakt →</button>
     </div>
   </template>
 
@@ -77,10 +76,9 @@ const routeToPage = (sectionId: string) => {
         <ul tabindex="0" class="dropdown-content menu bg-neutral-300/25 rounded-box z-1 w-35 shadow-sm" >
             <button
               v-for="item in navItems"
-              :key="item.id"
-              :to="item.id"
+              :key="item.route"
               class="text-neutral-200/75 hover:text-neutral-100 hover:underline underline-offset-10 p-3 rounded-full transition-all duration-200"
-              @click="routeToPage(item.id)"
+              @click="handleNavClick(item)"
             >
               {{ item.name }}
             </button>
