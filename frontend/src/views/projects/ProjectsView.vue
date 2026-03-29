@@ -6,21 +6,10 @@ import { getPlainTextPreview, getImageUrl, getCategory } from '@/assets/converte
 import { useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/project';
 
-const query = `*[_type == "project" ] | order(releaseDate desc)
-{
-  _id,
-  title,
-  "category": categories[0]->{
-    title
-  },
-  publishedAt,
-  body,
-  mainImage,
-}[0...29]`;
 interface Project {
   _id: string;
   title: string;
-  category: {
+  projectCategory: {
     title: string;
   };
   publishedAt: string;
@@ -40,6 +29,17 @@ onMounted(async () => {
 // Fetch projects from Sanity
 const fetchProjects = async () => {
   try {
+    const query = `*[_type == "project" ] | order(releaseDate desc)
+    {
+      _id,
+      title,
+      "projectCategory": projectCategories[0]->{
+        title
+      },
+      publishedAt,
+      body,
+      mainImage,
+    }[0...29]`;
     loading.value = true;
     const data = await sanity.fetch(query);
     projects.value = data;
@@ -75,7 +75,7 @@ const toProjectView = (id: string) => {
   <ul v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
     <ProjectCard v-for="project in projects" :key="project._id" @click="toProjectView(project._id)"
       :title="project.title"
-      :category="getCategory(project.category)"
+      :category="getCategory(project.projectCategory)"
       :published-at="project.publishedAt"
       :body="getPlainTextPreview(project.body, 200)"
       :main-image="getImageUrl(project.mainImage)"
