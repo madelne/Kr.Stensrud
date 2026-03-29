@@ -4,13 +4,24 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   name: 'link',
   title: 'Lenke',
-  type: 'object',
+  type: 'document',
   fields: [
+    defineField({
+      name: 'name',
+      title: 'Navn',
+      type: 'string',
+    }),
     defineField({
       name: 'url',
       title: 'URL',
       type: 'url',
     }),
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'url',
+    },
+  },
 })
 
