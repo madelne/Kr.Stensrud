@@ -1,63 +1,89 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import sanity from '@/sanity';
+import { getPlainTextPreview } from '@/assets/converter';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const omOssIntro = ref('');
+const recentProjects = ref<{ _id: string; title: string }[]>([]);
+const recentServices = ref<{ _id: string; name: string }[]>([]);
+const hmsIntro = ref('');
+
+onMounted(async () => {
+  const [omOss, projects, services, hms] = await Promise.all([
+    sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "Om oss, intro"][0] { body }`),
+    sanity.fetch(`*[_type == "project"] | order(publishedAt desc) [0...3] { _id, title }`),
+    sanity.fetch(`*[_type == "service"] | order(_createdAt desc) [0...3] { _id, name }`),
+    sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, intro"][0] { body }`),
+  ]);
+
+  omOssIntro.value = getPlainTextPreview(omOss?.body, 300);
+  recentProjects.value = projects;
+  recentServices.value = services;
+  hmsIntro.value = getPlainTextPreview(hms?.body, 300);
+});
+</script>
+
 <template>
+
 <div id="om-oss">
-  <div class="card bg-neutral-300/25 shadow-sm px-4 py-20 m-5 mt-0">
-    <div class="flex items-center justify-between h-full">
-      <router-link to="/">
-        <h2 class="text-5xl justify-start ml-5 w-50">Om oss</h2>
-      </router-link>
-      <p class="flex-1 text-left ml-50 text-lg text-neutral-200/75">Over 130 år med byggkompetanse</p>
-      <div class="ml-6">
-        <button class="contact-btn">Les mer→</button>
-      </div>
+  <div class="card bg-neutral-300/25 shadow-sm p-8 m-5 mt-0">
+    <div class="flex justify-between items-start mb-4">
+      <h2 class="text-5xl font-light">Om oss</h2>
+      <button class="contact-btn" @click="router.push('/Om-oss')">Les mer →</button>
     </div>
-    <ul class="text-neutral-100/75 text-lg m-5 flex flex-col gap-2">
-        <li>Ansatte</li>
-        <li>Nyheter</li>
-        <li>Personvernerklæring</li>
-        <li>Vår ansvarlighet og respekt for menneskerettigheter</li>
-      </ul>
+    <p class="text-neutral-200/75 text-lg leading-relaxed">{{ omOssIntro }}</p>
   </div>
 </div>
 
 <div id="prosjekter">
-  <router-link to="/Prosjekter">
-  <div class="card bg-neutral-300/25 shadow-sm px-4 py-20 m-5">
-    <div class="flex items-center justify-between h-full">
-        <h2 class="text-5xl justify-start ml-5 w-50">Prosjekter</h2>
-      <p class="flex-1 text-left ml-50 text-lg text-neutral-200/75">Se et utvalg av våre prosjekter</p>
-      <div class="ml-6">
-        <button class="contact-btn">Les mer→</button>
-      </div>
+  <div class="card bg-neutral-300/25 shadow-sm p-8 m-5">
+    <div class="flex justify-between items-start mb-4">
+      <h2 class="text-5xl font-light">Prosjekter</h2>
+      <button class="contact-btn" @click="router.push('/Prosjekter')">Se alle →</button>
     </div>
+    <ul class="flex flex-col gap-2">
+      <li
+        v-for="project in recentProjects"
+        :key="project._id"
+        class="text-neutral-200/75 text-lg cursor-pointer hover:text-white transition-colors"
+        @click="router.push('/Prosjekter/' + project._id)"
+      >
+        {{ project.title }}
+      </li>
+    </ul>
   </div>
-  </router-link>
 </div>
 
 <div id="tjenester">
-  <router-link to="/Tjenester">
-  <div class="card bg-neutral-300/25 shadow-sm px-4 py-20 m-5">
-    <div class="flex items-center justify-between h-full">
-        <h2 class="text-5xl justify-start ml-5 w-50">Tjenester</h2>
-      <p class="flex-1 text-left ml-50 text-lg text-neutral-200/75">Tilbygg, nybygg, rehabilitering, ombygging av kontor- og næringslokaler</p>
-      <div class="ml-6">
-        <button class="contact-btn">Les mer→</button>
-      </div>
+  <div class="card bg-neutral-300/25 shadow-sm p-8 m-5">
+    <div class="flex justify-between items-start mb-4">
+      <h2 class="text-5xl font-light">Tjenester</h2>
+      <button class="contact-btn" @click="router.push('/Tjenester')">Se alle →</button>
     </div>
+    <ul class="flex flex-col gap-2">
+      <li
+        v-for="service in recentServices"
+        :key="service._id"
+        class="text-neutral-200/75 text-lg cursor-pointer hover:text-white transition-colors"
+        @click="router.push('/Tjenester/' + service._id)"
+      >
+        {{ service.name }}
+      </li>
+    </ul>
   </div>
-  </router-link>
 </div>
 
 <div id="hms">
-  <div class="card bg-neutral-300/25 shadow-sm px-4 py-20 m-5">
-    <div class="flex items-center justify-between h-full">
-      <router-link to="/">
-        <h2 class="text-5xl justify-start ml-5 w-50">HMS</h2>
-      </router-link>
-      <p class="flex-1 text-left ml-50 text-lg text-neutral-200/75">Kr Stensrud & Søn AS jobber kontinuerlig etter en «null-skade» visjon</p>
-      <div class="ml-6">
-        <button class="contact-btn">Les mer→</button>
-      </div>
+  <div class="card bg-neutral-300/25 shadow-sm p-8 m-5">
+    <div class="flex justify-between items-start mb-4">
+      <h2 class="text-5xl font-light">HMS</h2>
+      <button class="contact-btn" @click="router.push('/HMS')">Les mer →</button>
     </div>
+    <p class="text-neutral-200/75 text-lg leading-relaxed">{{ hmsIntro }}</p>
   </div>
 </div>
+
 </template>
