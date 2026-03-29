@@ -4,6 +4,7 @@ import ProjectsView from '@/views/projects/ProjectsView.vue'
 import SingleProjectView from '@/views/projects/SingleProjectView.vue'
 import ServicesView from '@/views/services/ServicesView.vue'
 import SingleServiceView from '@/views/services/SingleServiceView.vue'
+import AboutView from '@/views/AboutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: '/Om-oss',
       name: 'about',
-      component: HomeView,
+      component: AboutView,
     },
     {
       path: '/Prosjekter',
