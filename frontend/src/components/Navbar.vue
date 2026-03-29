@@ -37,7 +37,7 @@ const handleNavClick = (item: NavItem) => {
 </script>
 
 <template>
-<div class="relative flex justify-between items-center pb-10">
+<div class="relative flex justify-between items-center pb-4">
 
   <!-- logo -->
   <router-link to="/">
