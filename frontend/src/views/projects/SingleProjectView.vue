@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, h } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import sanity from '@/sanity';
 import { PortableText } from '@portabletext/vue';
 import ImageLightbox from '@/components/ImageLightbox.vue';
@@ -22,6 +22,7 @@ const portableTextComponents = {
 };
 
 const route = useRoute();
+const router = useRouter();
 
 interface Project {
   _id: string;
@@ -156,12 +157,12 @@ const category = computed(() =>
 
       <!-- Back Button -->
       <div class="pb-16 border-t border-white/10 pt-8">
-        <router-link
-          to="/Prosjekter"
+        <button
+          @click="router.back()"
           class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-full border border-white/20 transition-all duration-300 font-medium"
         >
-          ← Tilbake til prosjekter
-        </router-link>
+          ← Tilbake
+        </button>
       </div>
     </div>
   </article>
