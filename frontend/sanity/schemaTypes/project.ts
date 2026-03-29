@@ -1,6 +1,6 @@
 import {defineField, defineType} from 'sanity'
 
-// Full building project, including title, author, published date, categories, description, and main image.
+// Full building project, including title, author, published date, categories, description, and main image
 export default defineType({
   name: 'project',
   title: 'Prosjekt',
@@ -23,10 +23,10 @@ export default defineType({
       type: 'date',
     }),
     defineField({
-      name: 'categories',
-      title: 'Kategorier',
+      name: 'projectCategories',
+      title: 'Prosjekt kategorier',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{type: 'reference', to: {type: 'projectCategory'}}],
     }),
     defineField({
       name: 'body',
