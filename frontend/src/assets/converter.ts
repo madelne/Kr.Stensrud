@@ -26,10 +26,10 @@ const getPlainTextPreview = (blocks: any, max: number) => {
 }
 
 // Helper function to get image URL from Sanity image object
-const getImageUrl = (image: any) => {
+const getImageUrl = (image: any, width = 800) => {
   const builder = ImageUrlBuilder(sanity);
   if (!image?.asset?._ref) return '/placeholder.jpg';
-  return builder.image(image).width(800).url();
+  return builder.image(image).width(width).url();
 };
 
 // Helper to get author name
