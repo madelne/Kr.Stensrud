@@ -1,7 +1,5 @@
 import {defineField, defineType} from 'sanity'
 
-// Textfield post, including title, type, and body.
-// Type is a reference to a textfieldType
 export default defineType({
   name: 'textfield',
   title: 'Tekstinnlegg',
@@ -14,9 +12,17 @@ export default defineType({
     }),
     defineField({
       name: 'textfieldtype',
-      title: 'textfield Type',
-      type: 'reference',
-      to: {type: 'textfieldType'},
+      title: 'Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Om oss – intro', value: 'Om oss, intro' },
+          { title: 'Om oss – innlegg', value: 'Om oss, innlegg' },
+          { title: 'HMS – intro', value: 'HMS, intro' },
+          { title: 'HMS – innlegg', value: 'HMS, innlegg' },
+        ],
+        layout: 'radio',
+      },
     }),
     defineField({
       name: 'body',
