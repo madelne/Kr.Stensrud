@@ -29,7 +29,11 @@ onMounted(() => {
 
 const handleNavClick = (item: NavItem) => {
   if (route.path === '/') {
-    document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(item.sectionId);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - (window.innerHeight / 2) + (el.offsetHeight / 2);
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   } else {
     router.push(item.route);
   }
@@ -37,7 +41,7 @@ const handleNavClick = (item: NavItem) => {
 </script>
 
 <template>
-<div class="relative flex justify-between items-center pb-4">
+<div class="relative flex justify-between items-center pb-8">
 
   <!-- logo -->
   <router-link to="/">
@@ -73,7 +77,7 @@ const handleNavClick = (item: NavItem) => {
 
 
         <div tabindex="0" role="button" class="px-3 -my-4"><p class="text-5xl light">☰</p></div>
-        <ul tabindex="0" class="dropdown-content menu bg-neutral-300/25 rounded-box z-1 w-35 shadow-sm" >
+        <ul tabindex="0" class="dropdown-content menu bg-neutral-300/90 rounded-box z-1 w-35 shadow-sm" >
             <button
               v-for="item in navItems"
               :key="item.route"
