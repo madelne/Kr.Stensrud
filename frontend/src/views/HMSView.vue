@@ -26,10 +26,10 @@ const loading = ref(true);
 onMounted(async () => {
   try {
     const [intro, posts, imgs] = await Promise.all([
-      sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, intro"][0] {
+      sanity.fetch(`*[_type == "textfield" && textfieldtype == "HMS, intro"][0] {
         _id, title, body
       }`),
-      sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, innlegg"] | order(_createdAt asc){
+      sanity.fetch(`*[_type == "textfield" && textfieldtype == "HMS, innlegg"] | order(_createdAt asc){
         _id, title, body
       }`),
       sanity.fetch(`*[_type == "hmsImage"] | order(_createdAt asc) {
