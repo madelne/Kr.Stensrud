@@ -13,10 +13,10 @@ const hmsIntro = ref('');
 
 onMounted(async () => {
   const [omOss, projects, services, hms] = await Promise.all([
-    sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "Om oss, intro"][0] { body }`),
+    sanity.fetch(`*[_type == "textfield" && textfieldtype == "Om oss, intro"][0] { body }`),
     sanity.fetch(`*[_type == "project"] | order(publishedAt desc) [0...3] { _id, title }`),
     sanity.fetch(`*[_type == "service"] | order(_createdAt desc) [0...3] { _id, name }`),
-    sanity.fetch(`*[_type == "textfield" && textfieldtype->textfieldtype == "HMS, intro"][0] { body }`),
+    sanity.fetch(`*[_type == "textfield" && textfieldtype == "HMS, intro"][0] { body }`),
   ]);
 
   omOssIntro.value = getPlainTextPreview(omOss?.body, 300);
