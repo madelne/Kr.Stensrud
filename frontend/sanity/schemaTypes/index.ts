@@ -5,9 +5,9 @@ import link from './link'
 import author from './author'
 import service from './service'
 import textfield from './textfield'
-import textfieldType from './textfieldType'
 import image from './heroImage'
 import hmsImage from './hmsImage'
 import certification from './certification'
+import employee from './employee'
 
-export const schemaTypes = [link, project, author, category, service, textfield, textfieldType, blockContent, image, hmsImage, certification]
+export const schemaTypes = [link, project, author, category, service, textfield, blockContent, image, hmsImage, certification, employee]

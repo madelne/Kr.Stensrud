@@ -135,12 +135,12 @@ const toProjectView = (id: string) => {
 
     <!-- Back Button -->
     <div class="border-t border-white/10 p-8">
-      <router-link
-        to="/Tjenester"
+      <button
+        @click="router.back()"
         class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-full border border-white/20 transition-all duration-300 font-medium"
       >
-        ← Tilbake til tjenester
-      </router-link>
+        ← Tilbake
+      </button>
     </div>
   </div>
 </template>
