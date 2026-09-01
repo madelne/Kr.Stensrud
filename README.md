@@ -21,4 +21,4 @@ npm run dev
 ```
 
 ### Sanity Studio:
-The Sanity Content Studio is hosted at [![(https://kr-stensrud.sanity.studio/)]](https://kr-stensrud.sanity.studio/)
+The Sanity Content Studio is hosted at https://kr-stensrud.sanity.studio/
